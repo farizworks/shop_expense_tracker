@@ -17,6 +17,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   final List<OnboardingItem> _items = [
     OnboardingItem(
+      icon: Icons.apps, // Placeholder, won't be shown
+      title: '', // Welcome screen
+      description: '',
+      isWelcomeScreen: true,
+    ),
+    OnboardingItem(
       icon: Icons.store,
       title: 'Manage Multiple Businesses',
       description:
@@ -140,11 +146,92 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   Widget _buildPage(OnboardingItem item) {
+    // Welcome screen (first screen)
+    if (item.isWelcomeScreen) {
+      return Padding(
+        padding: const EdgeInsets.all(40.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Logo with rounded border
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                    blurRadius: 20,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: Image.asset(
+                  'assets/images/app_logo.png',
+                  width: 150,
+                  height: 150,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            const SizedBox(height: 32),
+            // App Name
+            Text(
+              AppConstants.appName,
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            // Tagline
+            Text(
+              'Your Business Management Companion',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                  ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 48),
+            // Swipe indicator
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.swipe,
+                  color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                  size: 24,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  'Swipe to learn more',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+                const SizedBox(width: 8),
+                Icon(
+                  Icons.arrow_forward,
+                  color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                  size: 24,
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+
+    // Feature screens (original design without logo)
     return Padding(
       padding: const EdgeInsets.all(40.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // Feature Icon
           Icon(
             item.icon,
             size: 120,
@@ -188,10 +275,12 @@ class OnboardingItem {
   final IconData icon;
   final String title;
   final String description;
+  final bool isWelcomeScreen;
 
   OnboardingItem({
     required this.icon,
     required this.title,
     required this.description,
+    this.isWelcomeScreen = false,
   });
 }
