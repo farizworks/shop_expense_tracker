@@ -1,6 +1,6 @@
 class AppConstants {
   // App Info
-  static const String appName = 'Shop Expense Tracker';
+  static const String appName = 'BizTrack';
   static const String appVersion = '1.0.0';
 
   // Business Limits

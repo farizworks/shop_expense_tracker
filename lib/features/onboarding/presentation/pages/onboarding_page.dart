@@ -188,7 +188,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             const SizedBox(height: 12),
             // Tagline
             Text(
-              'Your Business Management Companion',
+              'Track Your Business Success',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
                   ),
